@@ -1,22 +1,19 @@
 'use strict';
 
-var _mongoose = require('mongoose');
+// import mongoose from 'mongoose';
+// import PostModel from './../models/Post';
+var mongoose = require('mongoose');
 
-var _mongoose2 = _interopRequireDefault(_mongoose);
+var _require = require('./../models/Post'),
+    Post = _require.Post;
 
-var _Post = require('./../models/Post');
+mongoose.connect('mongodb://localhost/blog');
 
-var _Post2 = _interopRequireDefault(_Post);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-_mongoose2.default.connect('mongodb://localhost/blog');
-
-var post = new _Post2.default({
+var post = new Post({
     title: "Ho",
     text: "hohohoho"
 });
 
 post.save().then(function () {
-    console.log("ОК");
+    console.log("ЭТА ХУНЯ НАКОНЕЦ ТО РАБОТАЕТ! УРААААААААААААААА ТАНЦУЙ КАК БУДТО ВЕНА АААААА УРАААА НАХУЙ БЛЯТЬ НАКОНЕЦТО ПИЗДЕЦ ВОТ ЭТО ДА КОНЕЧНО Я СЧАСТЛИВА ЧЕСТНО");
 });
