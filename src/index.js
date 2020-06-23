@@ -1,8 +1,9 @@
-const mongoose = require('mongoose');
-const express = require('express');
-const bodyParser = require('body-parser');
+import mongoose from 'mongoose';
+import express from 'express';
+import bodyParser from 'body-parser';
 
-const { PostModel } = require('./../models/Post');
+import PostController from './controllers/PostController';
+import PostModel from './models/Post'
 
 const app = express();
 mongoose.connect('mongodb://localhost/blog', {
@@ -58,6 +59,6 @@ app.put('/posts/:id', (req, res) => {
     });
 });
 
-app.listen(3333, (req, res) => {
+app.listen(8080, (req, res) => {
     console.log('SERVER STARTED!');
 });

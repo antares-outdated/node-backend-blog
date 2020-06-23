@@ -1,26 +1,46 @@
 'use strict';
 
-var mongoose = require('mongoose');
-var express = require('express');
-var bodyParser = require('body-parser');
+var _mongoose = require('mongoose');
 
-var _require = require('./../models/Post'),
-    PostModel = _require.PostModel;
+var _mongoose2 = _interopRequireDefault(_mongoose);
 
-var app = express();
-mongoose.connect('mongodb://localhost/blog', {
+var _express = require('express');
+
+var _express2 = _interopRequireDefault(_express);
+
+var _bodyParser = require('body-parser');
+
+var _bodyParser2 = _interopRequireDefault(_bodyParser);
+
+var _PostController = require('./controllers/PostController');
+
+var _PostController2 = _interopRequireDefault(_PostController);
+
+var _Post = require('./models/Post');
+
+var _Post2 = _interopRequireDefault(_Post);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// const { PostModel } = require('./models/Post');
+
+var app = (0, _express2.default)(); // const mongoose = require('mongoose');
+// const express = require('express');
+// const bodyParser = require('body-parser');
+
+_mongoose2.default.connect('mongodb://localhost/blog', {
     useUnifiedTopology: true,
     useNewUrlParser: true,
     useFindAndModify: false
 });
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(_bodyParser2.default.urlencoded({ extended: true }));
+app.use(_bodyParser2.default.json());
 
 app.post('/posts', function (req, res) {
     var data = req.body;
 
-    var newPost = new PostModel({
+    var newPost = new _Post2.default({
         title: data.title,
         text: data.text
     });
@@ -31,7 +51,7 @@ app.post('/posts', function (req, res) {
 });
 
 app.get('/posts', function (req, res) {
-    PostModel.find().then(function (err, posts) {
+    _Post2.default.find().then(function (err, posts) {
         if (err) {
             return res.send(err);
         }
@@ -40,7 +60,7 @@ app.get('/posts', function (req, res) {
 });
 
 app.delete('/posts/:id', function (req, res) {
-    PostModel.remove({
+    _Post2.default.remove({
         _id: req.params.id
     }).then(function (post) {
         if (post) {
@@ -52,7 +72,7 @@ app.delete('/posts/:id', function (req, res) {
 });
 
 app.put('/posts/:id', function (req, res) {
-    PostModel.findByIdAndUpdate(req.params.id, { $set: req.body }, function (err) {
+    _Post2.default.findByIdAndUpdate(req.params.id, { $set: req.body }, function (err) {
         if (err) {
             return res.send(err);
         } else {
@@ -61,6 +81,6 @@ app.put('/posts/:id', function (req, res) {
     });
 });
 
-app.listen(3333, function (req, res) {
+app.listen(8080, function (req, res) {
     console.log('SERVER STARTED!');
 });
