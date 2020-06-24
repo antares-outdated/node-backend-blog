@@ -10,8 +10,6 @@ var _mongoose2 = _interopRequireDefault(_mongoose);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// const mongoose = require('mongoose');
-// const Schema = mongoose.Schema;
 var PostSchema = new _mongoose.Schema({
     title: String,
     text: String
@@ -21,5 +19,4 @@ var PostSchema = new _mongoose.Schema({
 
 var PostModel = _mongoose2.default.model('Post', PostSchema);
 
-// module.exports = { PostModel }
 exports.default = PostModel;

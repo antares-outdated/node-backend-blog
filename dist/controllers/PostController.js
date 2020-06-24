@@ -1,11 +1,18 @@
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var _Post = require('./../models/Post');
 
-var _require = require("../models/Post"),
-    PostModel = _require.PostModel;
+var _Post2 = _interopRequireDefault(_Post);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var PostController = function () {
     function PostController() {
@@ -15,7 +22,7 @@ var PostController = function () {
     _createClass(PostController, [{
         key: 'index',
         value: function index(req, res) {
-            PostModel.find().then(function (err, posts) {
+            _Post2.default.find().then(function (err, posts) {
                 if (err) {
                     return res.send(err);
                 }
@@ -27,7 +34,7 @@ var PostController = function () {
         value: function create(req, res) {
             var data = req.body;
 
-            var newPost = new PostModel({
+            var newPost = new _Post2.default({
                 title: data.title,
                 text: data.text
             });
@@ -38,8 +45,8 @@ var PostController = function () {
         }
     }, {
         key: 'read',
-        value: function read() {
-            PostModel.findOne({ _id: req.params.id }).then(function (post) {
+        value: function read(req, res) {
+            _Post2.default.findOne({ _id: req.params.id }).then(function (post) {
                 if (!post) {
                     return res.send({ error: 'not found' });
                 } else {
@@ -50,7 +57,18 @@ var PostController = function () {
     }, {
         key: 'update',
         value: function update(req, res) {
-            PostModel.remove({
+            _Post2.default.findByIdAndUpdate(req.params.id, { $set: req.body }, function (err) {
+                if (err) {
+                    return res.send(err);
+                } else {
+                    return res.json({ status: 'update' });
+                }
+            });
+        }
+    }, {
+        key: 'delete',
+        value: function _delete(req, res) {
+            _Post2.default.remove({
                 _id: req.params.id
             }).then(function (post) {
                 if (post) {
@@ -60,18 +78,9 @@ var PostController = function () {
                 }
             });
         }
-    }, {
-        key: 'delete',
-        value: function _delete(req, res) {
-            PostModel.findByIdAndUpdate(req.params.id, { $set: req.body }, function (err) {
-                if (err) {
-                    return res.send(err);
-                } else {
-                    return res.json({ status: 'update' });
-                }
-            });
-        }
     }]);
 
     return PostController;
 }();
+
+exports.default = PostController;
