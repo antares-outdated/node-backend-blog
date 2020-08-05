@@ -1,26 +1,30 @@
 import mongoose from 'mongoose';
 import express from 'express';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 
 import PostController from './controllers/PostController';
 const Post = new PostController();
 
 const app = express();
-mongoose.connect('mongodb://localhost/blog', {
-    useUnifiedTopology: true,
+mongoose.connect(
+  'mongodb://localhost/blog',
+  {
     useNewUrlParser: true,
-    useFindAndModify: false
-});
+    useUnifiedTopology: true
+  },
+);
 
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cors());
 
-app.post('/posts', Post.create);
 app.get('/posts', Post.index);
-app.delete('/posts/:id', Post.delete);
+app.post('/addpost', Post.create);
 app.get('/posts/:id', Post.read);
-app.put('/posts/:id', Post.update);
+app.delete('/posts/:id', Post.delete);
+app.patch('/edit/:id', Post.update);
 
-app.listen(8080, (req, res) => {
-    console.log('SERVER STARTED!');
+app.listen(3333, () => {
+  console.log('SERVER STARTED!');
 });

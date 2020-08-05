@@ -1,7 +1,7 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _mongoose = require('mongoose');
@@ -11,12 +11,13 @@ var _mongoose2 = _interopRequireDefault(_mongoose);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var PostSchema = new _mongoose.Schema({
-    title: String,
-    text: String
+  title: String,
+  text: String,
+  imageUrl: String
 }, {
-    timestamps: true
+  timestamps: true
 });
 
-var PostModel = _mongoose2.default.model('Post', PostSchema);
+var Post = _mongoose2.default.model('Post', PostSchema);
 
-exports.default = PostModel;
+exports.default = Post;

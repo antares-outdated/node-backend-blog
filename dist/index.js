@@ -12,6 +12,10 @@ var _bodyParser = require('body-parser');
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
+var _cors = require('cors');
+
+var _cors2 = _interopRequireDefault(_cors);
+
 var _PostController = require('./controllers/PostController');
 
 var _PostController2 = _interopRequireDefault(_PostController);
@@ -22,20 +26,20 @@ var Post = new _PostController2.default();
 
 var app = (0, _express2.default)();
 _mongoose2.default.connect('mongodb://localhost/blog', {
-    useUnifiedTopology: true,
-    useNewUrlParser: true,
-    useFindAndModify: false
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 });
 
 app.use(_bodyParser2.default.urlencoded({ extended: true }));
 app.use(_bodyParser2.default.json());
+app.use((0, _cors2.default)());
 
-app.post('/posts', Post.create);
 app.get('/posts', Post.index);
-app.delete('/posts/:id', Post.delete);
+app.post('/addpost', Post.create);
 app.get('/posts/:id', Post.read);
-app.put('/posts/:id', Post.update);
+app.delete('/posts/:id', Post.delete);
+app.patch('/edit/:id', Post.update);
 
-app.listen(8080, function (req, res) {
-    console.log('SERVER STARTED!');
+app.listen(3333, function () {
+  console.log('SERVER STARTED!');
 });
