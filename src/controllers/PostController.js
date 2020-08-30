@@ -46,7 +46,7 @@ class PostController {
   }
 
   delete(req, res) {
-    PostModel.remove({
+    PostModel.deleteOne({
       _id: req.params.id,
     }).then(post => {
       if (post) {

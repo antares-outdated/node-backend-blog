@@ -70,7 +70,7 @@ var PostController = function () {
   }, {
     key: 'delete',
     value: function _delete(req, res) {
-      _Post2.default.remove({
+      _Post2.default.deleteOne({
         _id: req.params.id
       }).then(function (post) {
         if (post) {
