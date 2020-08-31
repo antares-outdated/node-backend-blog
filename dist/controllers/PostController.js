@@ -24,10 +24,10 @@ var PostController = function () {
     value: function index(req, res) {
       _Post2.default.find().then(function (err, posts) {
         if (err) {
-          res.send(err);
+          return res.send(err);
         }
 
-        res.json(posts);
+        return res.json(posts);
       });
     }
   }, {
@@ -42,7 +42,7 @@ var PostController = function () {
       });
 
       post.save().then(function () {
-        res.json(data);
+        return res.json(data);
       });
     }
   }, {
@@ -50,9 +50,9 @@ var PostController = function () {
     value: function read(req, res) {
       _Post2.default.findOne({ _id: req.params.id }).then(function (post) {
         if (!post) {
-          res.send({ error: 'not found' });
+          return res.send({ error: 'not found' });
         } else {
-          res.json(post);
+          return res.json(post);
         }
       });
     }
@@ -61,9 +61,9 @@ var PostController = function () {
     value: function update(req, res) {
       _Post2.default.findByIdAndUpdate(req.params.id, { $set: req.body }, function (err) {
         if (err) {
-          res.send(err);
+          return res.send(err);
         } else {
-          res.json(req.body);
+          return res.json(req.body);
         }
       });
     }
@@ -74,9 +74,9 @@ var PostController = function () {
         _id: req.params.id
       }).then(function (post) {
         if (post) {
-          res.json({ status: 'deleted' });
+          return res.json({ status: 'deleted' });
         } else {
-          res.json({ status: 'error' });
+          return res.json({ status: 'error' });
         }
       });
     }

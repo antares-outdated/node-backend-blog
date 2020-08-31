@@ -4,10 +4,10 @@ class PostController {
   index(req, res) {
     PostModel.find().then((err, posts) => {
       if (err) {
-        res.send(err);
+        return res.send(err);
       }
 
-      res.json(posts);
+      return res.json(posts);
     });
   }
 
@@ -21,16 +21,16 @@ class PostController {
     });
 
     post.save().then(() => {
-      res.json(data);
+      return res.json(data);
     });
   }
 
   read(req, res) {
     PostModel.findOne({ _id: req.params.id }).then(post => {
       if (!post) {
-        res.send({ error: 'not found' });
+        return res.send({ error: 'not found' });
       } else {
-        res.json(post);
+        return res.json(post);
       }
     });
   }
@@ -38,9 +38,9 @@ class PostController {
   update(req, res) {
     PostModel.findByIdAndUpdate(req.params.id, { $set: req.body }, err => {
       if (err) {
-        res.send(err);
+        return res.send(err);
       } else {
-        res.json(req.body);
+        return res.json(req.body);
       }
     });
   }
@@ -50,9 +50,9 @@ class PostController {
       _id: req.params.id,
     }).then(post => {
       if (post) {
-        res.json({ status: 'deleted' });
+        return res.json({ status: 'deleted' });
       } else {
-        res.json({ status: 'error' });
+        return res.json({ status: 'error' });
       }
     });
   }
