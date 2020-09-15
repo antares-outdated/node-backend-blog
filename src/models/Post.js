@@ -4,7 +4,7 @@ const PostSchema = new Schema(
   {
     title: String,
     text: String,
-    imageUrl: String,
+    color: String,
   },
   {
     timestamps: true,

@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.get('/posts', Post.index);
-app.post('/addpost', Post.create);
+app.post('/newpost', Post.create);
 app.get('/posts/:id', Post.read);
 app.delete('/posts/:id', Post.delete);
 app.patch('/edit/:id', Post.update);

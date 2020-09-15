@@ -38,11 +38,11 @@ var PostController = function () {
       var post = new _Post2.default({
         title: data.title,
         text: data.text,
-        imageUrl: data.imageUrl
+        color: data.color
       });
 
       post.save().then(function () {
-        return res.json(data);
+        return res.json(post._id);
       });
     }
   }, {

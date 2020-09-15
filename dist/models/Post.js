@@ -13,7 +13,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var PostSchema = new _mongoose.Schema({
   title: String,
   text: String,
-  imageUrl: String
+  color: String
 }, {
   timestamps: true
 });

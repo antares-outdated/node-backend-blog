@@ -35,7 +35,7 @@ app.use(_bodyParser2.default.json());
 app.use((0, _cors2.default)());
 
 app.get('/posts', Post.index);
-app.post('/addpost', Post.create);
+app.post('/newpost', Post.create);
 app.get('/posts/:id', Post.read);
 app.delete('/posts/:id', Post.delete);
 app.patch('/edit/:id', Post.update);

@@ -1,5 +1,6 @@
 import PostModel from '../models/Post';
 
+
 class PostController {
   index(req, res) {
     PostModel.find().then((err, posts) => {
@@ -17,11 +18,11 @@ class PostController {
     const post = new PostModel({
       title: data.title,
       text: data.text,
-      imageUrl: data.imageUrl,
+      color: data.color,
     });
 
     post.save().then(() => {
-      return res.json(data);
+        return res.json(post._id)
     });
   }
 
@@ -50,11 +51,12 @@ class PostController {
       _id: req.params.id,
     }).then(post => {
       if (post) {
-        return res.json({ status: 'deleted' });
+        return res.json({ status: 'deleted' })
       } else {
-        return res.json({ status: 'error' });
+        return res.json({ status: 'error' }
+        )
       }
-    });
+    })
   }
 }
 
